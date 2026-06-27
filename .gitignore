@@ -3,3 +3,27 @@
 *.zip
 .DS_Store
 Thumbs.db
+
+# Obsidian local workspace state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache/
+.trash/
+
+# Generated or heavy local files
+outputs/
+data/
+datasets/
+checkpoints/
+models/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.pkl
+*.npy
+*.npz
+
+# Python / notebook cache
+__pycache__/
+.ipynb_checkpoints/
