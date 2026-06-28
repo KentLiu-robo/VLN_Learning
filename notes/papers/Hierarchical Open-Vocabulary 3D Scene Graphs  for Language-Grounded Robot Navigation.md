@@ -10,7 +10,7 @@
 - Tags: HOV-SG
 
 ## One-Sentence Summary
-构建分层的开放词汇3D场景图，解决目标抽象对于Robot Navigation带来的阻碍，实现对于多层实景的
+构建分层的开放词汇3D场景图，解决抽象对于Robot Navigation带来的阻碍，实现对于多层实景的
 
 ## Problem
 1.大型环境和物体目标层面抽象的要求存在限制
