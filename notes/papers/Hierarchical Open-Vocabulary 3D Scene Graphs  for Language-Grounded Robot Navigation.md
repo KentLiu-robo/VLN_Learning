@@ -22,7 +22,9 @@
 
 
 ## Method
+1.3D segment-level open-vocabulary map建立
 
+2.依据开放词汇地图建立场景图scene graph
 
 ## Key Contributions
 
