@@ -45,6 +45,9 @@
 使用 DBSCAN 对这些点级 CLIP 特征进行聚类，然后找到多数簇，再选择距离多数簇均值最近的特征作为最终特征
 ### 依据开放词汇地图建立场景图scene graph
 
+#### 1.floor segmentation
+沿高度轴构建 histogram，然后检测高度分布中的峰值，并用 DBSCAN 对峰值聚类，最后选出代表性的高度层。然后用高度向量中两个连续值作为边界，floor & ceiling。
+
 
 ## Key Contributions
 
