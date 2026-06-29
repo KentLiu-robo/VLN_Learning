@@ -22,8 +22,9 @@
 
 
 ## Method
-1.3D segment-level open-vocabulary map建立
+## segment-level open-vocabulary map建立
 从 RGB-D 视频中得到一批**物体级/片段级 3D segments**，并给每个 segment 分配一个开放词表视觉语言特征。论文强调，它没有给每个点都存一个特征，而是利用“相邻点通常语义一致”的假设，只在 segment 层面存特征，以减少存储开销
+
 具体流程图类似：
 **RGB-D图像
 	↓SAM
@@ -39,7 +40,12 @@
 2. **mask bounding box crop 的 CLIP feature**：保留目标和周围背景；
 3. **去除背景后的 masked crop CLIP feature**：更聚焦目标本身。
 
-然后用加权求和方式融合这三类特征。结合整图、带背景 crop、去背景 masked crop，比只用其中一种效果更好
+加权求和方式融合这三类特征
+对于每个mask提取的特征映射到深度投影的3D点附近（**point-wise feature map**），对于重复观测到的3D点其特征直接平均
+
+DBSCAN 从点级特征中选出 segment 的主导语义特征
+
+
 
 2.依据开放词汇地图建立场景图scene graph
 
