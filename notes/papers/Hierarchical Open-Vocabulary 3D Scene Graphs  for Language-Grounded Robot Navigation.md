@@ -92,12 +92,29 @@ floor节点同时会添加上text embedding"floor {#}",用作语义标识
 3.**actionable map**：不停留在semantic map 而是可以让机器人执行导航任务，包括跨楼层任务
 
 ## Experiments
-
+- **benchmark**: 论文在 Replica 和 ScanNet 上比较了 HOV-SG、ConceptFusion、ConceptGraphs 等方法。结果显示，使用 ViT-H-14 作为 CLIP backbone 时，HOV-SG 在 Replica 上取得 **mIoU 0.231、F-mIoU 0.386、mAcc 0.304**，在 ScanNet 上取得 **mIoU 0.222、F-mIoU 0.303、mAcc 0.431**，整体优于其他开放词表方法
+- **实机实验**: 论文使用 Boston Dynamics Spot 机器人，在两层办公楼中进行真实环境测试。实验包含 **41 个物体目标、9 个房间目标和 2 个楼层目标**。结果显示，object 查询的图检索成功率为 **70.7%**，最终导航成功率为 **56.1%**；room 查询成功率为 **55.6%**；floor 查询为 **100%**。这说明 HOV-SG 不只是离线语义表示，还能结合 Voronoi navigation graph 支持真实机器人跨楼层导航
+- **存储效率**：HOV-SG 用 segment/object/room/floor 节点存储语义特征，而不是给每个点、voxel 或 grid cell 存一个视觉语言 embedding。因此在 HM3DSem 的 8 个场景中，总存储量为 **1493 MB**，而 VLMaps 为 **6068 MB**，平均减少约 **75%** 的存储开销
 
 ## Limitations
-
-
-
+1.流程复杂，超参较多，部署调参成本高
+2.假设环境的静态，很难应对动态场景
+3.房间语义容易受视觉相似性影响
 ## Questions
-
+如何在exploration过程中建立这样的scene graph？
+**对于 HOV-SG 这篇论文中的真实机器人导航实验来说，基本上是先需要对整个室内环境进行预扫描/建图，然后再基于建好的层级 3D Scene Graph 进行语言查询和导航**。它不是一个严格意义上的在线 SLAM 式系统
+从方法扩展角度看，**边探索边建图完全可以实现**，只是需要把 HOV-SG 改造成增量式框架。其中 object-level 语义 map 最容易在线化，navigation graph 也可以局部更新；真正困难的是room/floor 的稳定在线分割、节点合并/拆分、动态环境更新以及语言目标驱动的主动探索。
+举例分析：
+用户指令：Find the mug in the kitchen.
+1. 在已有 HOV-SG 中查找 kitchen 和 mug
+2. 如果找到：
+      直接规划到目标附近
+3. 如果只找到 kitchen，没找到 mug：
+      导航到 kitchen 内继续局部探索
+4. 如果 kitchen 也没找到：
+      根据 frontier exploration 探索未知房间
+5. 每探索一段：
+      更新 object nodes、room nodes、navigation graph
+6. 一旦目标查询匹配成功：
+      停止探索，转入目标导航
 
