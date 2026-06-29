@@ -72,6 +72,9 @@ floor节点同时会添加上text embedding"floor {#}",用作语义标识
 **合并操作**：
 把具有显著 pair-wise partial overlap 且查询得到相同 object label 的 3D segments 合并。也就是说，如果两个 segment 在几何上高度重叠，并且语义上都被识别为同一种物体，就合并成一个 object node
 
+### 可导航图Actionable Graph
+每层楼构建 floor-level free space map
+
 ## Key Contributions
 
 1.
