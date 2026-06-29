@@ -16,7 +16,7 @@
 可扩展大型环境和物体目标层面抽象的要求存在限制：
 - 语义3D地图：
 	1.因为受到预定义的目标设置或者训练的语义推测模型的限制，往往工作在固定目录（fixed category）
-	2.刚需对每个几何物体存储visual-language embedding，来保证
+	2.为了突破固定目录的限制，则刚需对每个几何物体存储visual-language embedding，提高了存储代价
 
 
 ## Method
