@@ -3,11 +3,11 @@
 ## Metadata
 
 - Paper: ApexNav: An Adaptive Exploration Strategy for Zero-Shot Object  Navigation with Target-centric Semantic Fusion
-- Authors:
-- Year:2025 Sept
+- Authors: Mingjie Zhang et. al.
+- Year: 2025 Sep
 - Link:https://arxiv.org/abs/2504.14478
-- Area:Vision Based Navigation, Autonomous Agents
-- Tags:
+- Area: VLN
+- Tags:Vision-Based Navigation, Autonomous Agents, Search and Rescue Robot
 
 ## One-Sentence Summary
 
