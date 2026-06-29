@@ -12,6 +12,9 @@
 ## One-Sentence Summary
 构建分层的开放词汇3D场景图，解决抽象对于Robot Navigation带来的阻碍，实现对于多层实景楼房的空间记忆和机器人可回退导航
 
+GPT5.5如是说:
+HOV-SG 的 3D Scene Graph 不是直接从网络预测出来的，而是一个**几何启发式分层 + SAM 分割 + CLIP 开放词表特征 + DBSCAN 特征聚合 + Voronoi 可导航图**组合起来的系统：先把 RGB-D 观测变成带 CLIP 特征的 3D segments，再用高度直方图分楼层、BEV-Watershed 分房间、overlap 分配物体，最后形成 `root → floor → room → object` 的层级图，并通过导航图把语义目标转化为机器人可执行路径。
+
 ## Problem
 可扩展大型环境和物体目标层面抽象的要求存在限制：
 - 语义3D地图：
@@ -74,20 +77,25 @@ floor节点同时会添加上text embedding"floor {#}",用作语义标识
 
 ### 可导航图Actionable Graph
 每层楼构建 floor-level free space map
+1. 将相机轨迹点投影到 BEV；
+2. 将 floor point cloud 投影到 BEV；
+3. 根据一定高度范围的点生成 obstacle map；
+4. 用 floor/pose region 减去 obstacle region，得到 free space；
+5. 在 free space 上构建 Voronoi graph。
+将相机位姿投影为 BEV 点，并假设一定半径内的相邻节点可通行；同时用 floor-wise points 得到楼层区域，用特定高度范围内的点得到 obstacle map，最后生成 free space map 并构建 Voronoi graph
 
+多楼层环境，HOV-SG 会提取被分类为 stairs 的区域中的相机位姿，形成 stair-wise graph。然后将 stair graph 与对应楼层的 Voronoi graph 中最近节点连接起来，从而得到 cross-floor navigational graph
 ## Key Contributions
 
-1.
-2.
-3.
+1.**Open-Vocabulary**: 自然语言查询，无需预定义类别
+2.**分层级抽象**：分为Root，Floor, Room, Object多层级的逻辑图，方便查找符合直观
+3.**actionable map**：不停留在semantic map 而是可以让机器人执行导航任务，包括跨楼层任务
 
 ## Experiments
 
 
 ## Limitations
 
-
-## Connections
 
 
 ## Questions
