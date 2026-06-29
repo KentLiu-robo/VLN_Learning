@@ -23,8 +23,7 @@
 ## Method
 ### segment-level open-vocabulary map建立
 从 RGB-D 视频中得到一批**物体级/片段级 3D segments**，并给每个 segment 分配一个开放词表视觉语言特征。论文强调，它没有给每个点都存一个特征，而是利用“相邻点通常语义一致”的假设，只在 segment 层面存特征，以减少存储开销
-
-具体流程图类似：
+**具体流程图**：
 **RGB-D图像
 	↓SAM
 2D mask + depth + camera pose
@@ -33,16 +32,15 @@
 	↓坐标转换+多帧 3D segment 合并
 全局 3D segment candidate**
 
-开放语义特征如何获取：
+**开放语义特征的获取**：
 对于每个 2D mask，论文提取三种图像输入的 CLIP 特征：
 1. **整张 RGB 图像的 CLIP feature**：提供全局上下文；
 2. **mask bounding box crop 的 CLIP feature**：保留目标和周围背景；
 3. **去除背景后的 masked crop CLIP feature**：更聚焦目标本身。
 加权求和方式融合这三类特征
-
 对于每个mask提取的特征映射到深度投影的3D点附近（**point-wise feature map**），对于重复观测到的3D点其特征直接平均
-
 使用 DBSCAN 对这些点级 CLIP 特征进行聚类，然后找到多数簇，再选择距离多数簇均值最近的特征作为最终特征。
+
 ### 依据开放词汇地图建立场景图scene graph
 
 #### 1.Floor Segmentation
@@ -52,6 +50,7 @@ floor节点同时会添加上text embedding"floor {#}",用作语义标识
 #### 2.Room Segmentation
 对于每个 floor point cloud，将其投影到鸟瞰图 BEV 平面，构造 2D histogram。这样 3D 房间布局被转换为 2D 平面结构。随后从 BEV histogram 中通过阈值提取墙体骨架mask。
 
+**Room masks 的获取：**
 得到墙体 mask 后会：
 1. 对 wall mask 做膨胀；
 2. 计算 Euclidean Distance Field, EDF；
@@ -61,9 +60,18 @@ floor节点同时会添加上text embedding"floor {#}",用作语义标识
 
 每个 2D room mask 对应 BEV 平面一个区域，再结合该 floor 的高度范围，提取落在该 2D 区域和高度区间内的 3D 点，构成**room point cloud**。论文指出，这些 room point clouds 后续用于把 objects 关联到 rooms
 
-Room nodes的语义表征：
+**Room nodes的语义表征**：
 通过该房间内的观察，提取这些图像的CLIP特征，使用K-means选出最具代表性的K个特征
-Room
+
+**Room的分类**：通过CLIP特征与候选room categories的余弦相似度寻找最为接近的房间类型
+
+#### 3，Object Identification
+**物体分配给房间**
+给定 room point cloud，首先会检查 object-level 3D segments 与候选 room 在 BEV 平面上的点云重叠部分。如果某个 object segment 与某个 room 有重叠，就把它分配给该 room；如果一个 segment 和所有 room 都没有重叠，则分配给欧氏距离最近的 room。
+
+**合并操作**：
+把具有显著 pair-wise partial overlap 且查询得到相同 object label 的 3D segments 合并。也就是说，如果两个 segment 在几何上高度重叠，并且语义上都被识别为同一种物体，就合并成一个 object node
+
 ## Key Contributions
 
 1.
