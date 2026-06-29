@@ -42,12 +42,22 @@
 
 对于每个mask提取的特征映射到深度投影的3D点附近（**point-wise feature map**），对于重复观测到的3D点其特征直接平均
 
-使用 DBSCAN 对这些点级 CLIP 特征进行聚类，然后找到多数簇，再选择距离多数簇均值最近的特征作为最终特征
+使用 DBSCAN 对这些点级 CLIP 特征进行聚类，然后找到多数簇，再选择距离多数簇均值最近的特征作为最终特征。
 ### 依据开放词汇地图建立场景图scene graph
 
-#### 1.floor segmentation
-沿高度轴构建 histogram，然后检测高度分布中的峰值，并用 DBSCAN 对峰值聚类，最后选出代表性的高度层。然后用高度向量中两个连续值作为边界，floor & ceiling。
+#### 1.Floor Segmentation
+沿高度轴构建 histogram，然后检测高度分布中的峰值，并用 DBSCAN 对峰值聚类，最后选出代表性的高度层。然后用高度向量中两个连续值作为一个floor的边界（floor & ceiling）。
+floor节点同时会添加上text embedding"floor {#}",用作语义标识
 
+#### 2.Room Segmentation
+对于每个 floor point cloud，将其投影到鸟瞰图 BEV 平面，构造 2D histogram。这样 3D 房间布局被转换为 2D 平面结构。随后从 BEV histogram 中通过阈值提取墙体骨架mask。
+
+得到墙体 mask 后会：
+1. 对 wall mask 做膨胀；
+2. 计算 Euclidean Distance Field, EDF；
+3. 对 EDF 阈值化得到 isolated regions；
+4. 以这些 isolated regions 作为 seeds；
+5. 使用 Watershed 算法得到 2D room masks
 
 ## Key Contributions
 
