@@ -13,7 +13,7 @@
 
 
 ## Problem
-
+1.现有的Zero-shot Object Navigation(下称ZSON)，往往重度依赖语义推理，但是语义信息在相当一部分情况下，难以获取或无法充分表征
 
 ## Method
 
