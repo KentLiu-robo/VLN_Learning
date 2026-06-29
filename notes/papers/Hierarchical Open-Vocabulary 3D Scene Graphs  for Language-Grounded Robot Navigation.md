@@ -59,6 +59,11 @@ floor节点同时会添加上text embedding"floor {#}",用作语义标识
 4. 以这些 isolated regions 作为 seeds；
 5. 使用 Watershed 算法得到 2D room masks
 
+每个 2D room mask 对应 BEV 平面一个区域，再结合该 floor 的高度范围，提取落在该 2D 区域和高度区间内的 3D 点，构成**room point cloud**。论文指出，这些 room point clouds 后续用于把 objects 关联到 rooms
+
+Room nodes的语义表征：
+通过该房间内的观察，提取这些图像的CLIP特征，使用K-means选出最具代表性的K个特征
+Room
 ## Key Contributions
 
 1.
