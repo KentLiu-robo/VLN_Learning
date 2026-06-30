@@ -30,7 +30,6 @@
 ## Limitations
 
 
-## Connections
 
 
 ## Questions
