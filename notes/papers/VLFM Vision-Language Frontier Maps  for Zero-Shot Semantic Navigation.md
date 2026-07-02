@@ -18,12 +18,20 @@
 3.基于LLM或文本语义的方法，往往将视觉信息强制转换到text，导致视觉线索的丢失，且需要大量的计算资源意味着刚需远程服务器。
 
 ## Method
-三步走：
+### 三步走：
 1.Initialization: robot旋转建模frontier map和value map
 2.Exploration:robot 根据value maps开始选择最具价值waypoint巡航，并不断迭代更新frontier & value map，重复选择和巡航，直到视野中出现target object
 3.goal navigation: robot每次导航到目标物体方向最近的点，并在到达物体附近时STOP
 
+#### Frontier Map的构建
+使用深度图和里程计构建top-down 2D obstacle map:- 将当前深度图转换为点云；
+- 过滤掉过低或过高的点，只保留可能构成障碍物的点；
+- 将点云从相机坐标系变换到全局坐标系；
+- 投影到 2D 网格地图中；
+- 根据已探索区域和未探索区域的边界提取 frontier；
+- 将每段 frontier 的中点作为候选 waypoint
 
+#### Value Map的构建
 
 ## Key Contributions
 
