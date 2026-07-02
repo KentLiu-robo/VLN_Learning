@@ -46,17 +46,18 @@ VLFM 使用 BLIP-2 计算当前 RGB 图像与文本 prompt 的 cosine similarity
 在真实 Spot 机器人部署中，论文没有使用仿真中的 PointNav policy，而是使用 Boston Dynamics API 执行 waypoint navigation
 ## Key Contributions
 1.Frontier Map转为Value Map-Based，更加符合人类寻找目标时的探索策略
-2.使用VLM而非LLM，绕开视觉转为检测文本d
-3.
+2.使用VLM而非LLM，绕开视觉转为检测文本的步骤，提高信息利用率
+3.方便部署和升级，模块化的架构化以及不需要大量转换prompt的设计，可以很方便进行模块替换和升级
 
 ## Experiments
+1.与零样本方法相比，VLFM 在三个数据集上都超过 CoW、ESC、SemUtil、ZSON 等方法。论文报告：VLFM 相比 SemUtil 在 Gibson 上 SPL +11.7、SR +14.7；相比 ESC 在 HM3D 上 SPL +8.1、SR +13.3；相比 ESC 在 MP3D 上 SPL +3.3、SR +7.7
 
-
+2.与监督训练方法相比，VLFM 在 Gibson 和 MP3D 上甚至超过了一些直接在 ObjectNav 上训练的方法。例如在 Gibson 上相比 SemExp，VLFM SPL +19.2、SR +19.0；在 MP3D 上相比 PONI，VLFM SPL +5.4、SR +4.6
 ## Limitations
+1.依赖目标在默认相机高度下可见
+2.当前 value map 是任务特定的，不能复用为通用语义地图
+3.多楼层/楼梯问题处理不足
+4.VLM value 分数不一定等价于真实可达性或目标概率
 
-
-
-
-## Questions
 
 
