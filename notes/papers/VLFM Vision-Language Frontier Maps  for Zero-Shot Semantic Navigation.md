@@ -32,7 +32,7 @@
 - 将每段 frontier 的中点作为候选 waypoint
 
 #### Value Map的构建
-
+Value Map和Frontier Map基本对齐，但是包含两个channel，一个是value分数，一个是confidence分数
 ## Key Contributions
 
 1.
