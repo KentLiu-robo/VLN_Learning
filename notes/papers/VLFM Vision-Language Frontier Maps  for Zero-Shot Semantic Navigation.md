@@ -33,10 +33,20 @@
 
 #### Value Map的构建
 Value Map和Frontier Map基本对齐，但是包含两个channel，一个是value分数，一个是confidence分数
-## Key Contributions
+VLFM 使用 BLIP-2 计算当前 RGB 图像与文本 prompt 的 cosine similarity。BLIP-2 输出图像和文本之间的相似度分数。分数越高，说明当前视觉观测越像是“前方可能有该目标物体”的场景。然后将这个分数投影到机器人当前视野对应的 top-down map 区域中
 
-1.
-2.
+机器人从不同角度、不同距离看到同一区域时，VLM 给出的语义分数可能不同。VLFM 不直接用新分数覆盖旧分数，而是根据观察角度给每个像素一个 confidence。论文设定中，越靠近相机光轴的区域 confidence 越高；越靠近视野边缘，confidence 越低。原因很直观：图像中心区域通常更清晰、更可靠，而边缘区域可能畸变更大、语义信息更弱。当同一个地图区域被多次观察时，VLFM 使用带 confidence 的加权平均更新 semantic value。这样可以避免一次低质量观测或边缘视角观测直接破坏地图，也可以融合多帧信息。论文消融实验表明，加权平均优于直接替换和普通平均
+
+#### 目标检测
+对于 COCO 类别中的目标，使用 **YOLOv7**；对于非 COCO 或开放词汇类别，使用 **Grounding-DINO**。检测到目标后，再用 **Mobile-SAM** 从检测框中分割出目标轮廓，并结合深度图估计目标上距离机器人最近的点，作为最终导航 waypoint
+
+#### Waypoint Navigation
+在仿真实验中，VLFM 使用一个预训练的 **PointNav policy** 来执行到 waypoint 的低层导航。该 PointNav policy 使用 VER 算法训练，输入是深度图以及相对目标距离和方向，不使用 RGB 图像
+
+在真实 Spot 机器人部署中，论文没有使用仿真中的 PointNav policy，而是使用 Boston Dynamics API 执行 waypoint navigation
+## Key Contributions
+1.Frontier Map转为Value Map-Based，更加符合人类寻找目标时的探索策略
+2.使用VLM而非LLM，绕开视觉转为检测文本d
 3.
 
 ## Experiments
