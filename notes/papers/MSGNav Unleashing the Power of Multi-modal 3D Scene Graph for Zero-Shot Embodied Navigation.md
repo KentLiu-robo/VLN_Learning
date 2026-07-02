@@ -10,7 +10,7 @@
 - Tags:3D Scene Graph, zero-shot embodied navigation
 
 ## One-Sentence Summary
-
+个人ren'w
 
 ## Problem
 
