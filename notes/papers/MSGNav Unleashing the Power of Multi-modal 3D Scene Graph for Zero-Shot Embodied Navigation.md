@@ -41,6 +41,8 @@ Image edge:
 空间距离小于阈值的物体对，如果它们在同一帧中共同出现，则把这一帧图像加入它们之间的 edge image set; 避免频繁调用 VLM 生成关系文本，同时保留更丰富的关系信息
 
 ### 2.MSGNav
+四个关键模块
+#### KSS：Key Subgraph Selection
 
 
 ## Key Contributions
