@@ -16,14 +16,3 @@ Use this folder for notes about individual papers, surveys, benchmarks, and tech
 - [Hierarchical Open-Vocabulary 3D Scene Graphs for Language-Grounded Robot Navigation](<Hierarchical Open-Vocabulary 3D Scene Graphs  for Language-Grounded Robot Navigation.md>)
 - [MSGNav: Unleashing the Power of Multi-modal 3D Scene Graph for Zero-Shot Embodied Navigation](<MSGNav Unleashing the Power of Multi-modal 3D Scene Graph for Zero-Shot Embodied Navigation.md>)
 
-## Suggested Filename Format
-
-```text
-YYYY-short-paper-title.md
-```
-
-Example:
-
-```text
-2024-navgpt-2.md
-```

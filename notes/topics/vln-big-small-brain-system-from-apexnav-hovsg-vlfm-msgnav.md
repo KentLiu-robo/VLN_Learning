@@ -13,12 +13,12 @@
 
 ## 四篇工作的核心定位
 
-| 工作 | 核心问题 | 核心表示 | 工作重点 | 系统角色 |
-| --- | --- | --- | --- | --- |
-| VLFM | 未知环境中的 zero-shot semantic navigation 如何选 frontier | 2D frontier map + language-grounded value map | 用 BLIP-2 给 frontier / free space 赋语义价值，引导探索 | 在线探索前端 |
-| ApexNav | 语义线索不稳定、目标误检污染、局部导航安全性 | semantic score map + object cluster + safe waypoint | 在语义探索和几何探索间自适应切换，并做 target-centric semantic fusion | 探索策略与目标确认 |
-| HOV-SG | 大型真实环境中如何构建可查询、可导航、开放词汇的 3D 语义记忆 | root-floor-room-object 分层 3D scene graph + Voronoi actionable graph | 从 RGB-D 构建分层开放词汇 3D 场景图，支持语言查询和跨楼层导航 | 长期语义地图 / 空间记忆 |
-| MSGNav | 传统 scene graph 文本边丢失视觉关系，完整图输入 VLM 成本高 | object node + image edge 的 M3DSG | 用图像边保留关系证据，结合 KSS、AVU、CLR、VVD 完成 zero-shot embodied navigation | 多模态记忆与高层推理 |
+| 工作      | 核心问题                                              | 核心表示                                                                | 工作重点                                                           | 系统角色          |
+| ------- | ------------------------------------------------- | ------------------------------------------------------------------- | -------------------------------------------------------------- | ------------- |
+| VLFM    | 未知环境中的 zero-shot semantic navigation 如何选 frontier | 2D frontier map + language-grounded value map                       | 用 BLIP-2 给 frontier / free space 赋语义价值，引导探索                    | 在线探索前端        |
+| ApexNav | 语义线索不稳定、目标误检污染、局部导航安全性                            | semantic score map + object cluster + safe waypoint                 | 在语义探索和几何探索间自适应切换，并做 target-centric semantic fusion             | 探索策略与目标确认     |
+| HOV-SG  | 大型真实环境中如何构建可查询、可导航、开放词汇的 3D 语义记忆                  | root-floor-room-object 分层 3D scene graph + Voronoi actionable graph | 从 RGB-D 构建分层开放词汇 3D 场景图，支持语言查询和跨楼层导航                           | 长期语义地图 / 空间记忆 |
+| MSGNav  | 传统 scene graph 文本边丢失视觉关系，完整图输入 VLM 成本高            | object node + image edge 的 M3DSG                                    | 用图像边保留关系证据，结合 KSS、AVU、CLR、VVD 完成 zero-shot embodied navigation | 多模态记忆与高层推理    |
 
 ## 按 VLN 系统模块比较
 
