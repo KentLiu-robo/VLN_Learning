@@ -86,12 +86,18 @@ MSGNav 取得 SR=52.0、SPL=29.6，超过训练式 MTU3D 的 SR=47.2、SPL=27.7�
 - AVU 和 CLR 单独加入不一定总是提升 SR，但二者组合后达到最佳；
 - 完整 MSGNav 达到 SR=60.0、SPL=37.0
 ### VVD 对 last-mile problem 的验证
-
+在严格阈值 0.25 m 下，不使用 VVD 的 SR 只有 33.91，而使用 VVD 后达到 51.97。随着阈值放宽，不使用 VVD 的成功率明显提升，说明很多失败其实不是“找不到目标”，而是“最后停的位置不好”。论文也承认，VVD 缓解了 last-mile problem，但没有完全解决
 ## Limitations
-
-
-
-
+1.推理效率仍然受 VFMs/VLMs 限制:VFMs 和 VLMs 的延迟较高，未来需要更快的图构建和推理方法来支持实时部署
+2.图像边会带来存储和选择问题:论文通过 KSS 解决“推理时输入太多”的问题，但对于长期存储、图像去冗余、记忆压缩等问题，仍有进一步研究空间
+3.CLR 的严格历史决策可能限制探索:历史记忆并不总是正收益。如果历史反馈被错误解释，系统可能过早排除某些区域，导致探索不足。
+4.VVD 缓解但没有完全解决 last-mile problem:好的视角不仅取决于几何可见性，还取决于相机朝向、目标语义可识别性、遮挡动态、导航可达性和局部避障能力
+5.真实部署可行性不足：MSGNav 这篇更偏 benchmark 系统验证。它的真实部署可行性仍需要进一步观察，尤其是实时性、场景图长期维护、API 调用延迟和传感器误差。
 ## Questions
 
-
+如何结合VLFM和MSGNav完成一个更为完备的life-long VLN系统：
+- 用 **frontier map** 保证主动探索；
+- 用 **2D/3D semantic value map** 快速评估探索方向；
+- 用 **object-centric scene graph** 保存长期物体记忆；
+- 用 **image-edge relation** 支持更细粒度目标推理；
+- 用 **visibility viewpoint selection** 解决最后停靠位置问题
