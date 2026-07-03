@@ -51,6 +51,13 @@ Image edge:
 
 #### AVU：Adaptive Vocabulary Update
 一开始可以用 ScanNet-200 等词表初始化，但真实环境中目标类别可能更细、更开放，故在探索过程中让 VLM 查看 M3DSG 中保存的 edge images，并根据视觉证据提出新的词汇。然后这些新词会被加入当前 vocabulary。论文认为，这样可以使场景图逐渐拥有更准确、更丰富的对象描述，从而支持超出预设词表的导航目标
+
+#### CLR：Closed-Loop Reasoning
+引入decision memory，把每一步的探索响应保存到历史动作库中，并在下一次推理时把这些历史反馈提供给 VLM，使得 VLM 的推理从 open-loop 变成 closed-loop，能够根据过去探索结果修正当前判断。
+
+#### 
+
+
 ## Key Contributions
 
 1.
