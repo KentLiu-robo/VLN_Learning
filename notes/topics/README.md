@@ -9,3 +9,7 @@ Examples:
 - `robot-navigation-sim-to-real.md`
 
 Topic notes should link papers, concepts, datasets, and open questions together.
+
+## Current Topic Notes
+
+- [从 ApexNav、HOV-SG、VLFM、MSGNav 看具身大小脑 VLN 系统](vln-big-small-brain-system-from-apexnav-hovsg-vlfm-msgnav.md)

@@ -3,6 +3,7 @@
 ## Index
 
 - [[notes/papers/VLN-awesome-survey-notes|VLN 学习笔记：Awesome Visual-Language-Navigation]]
+- [[notes/topics/vln-big-small-brain-system-from-apexnav-hovsg-vlfm-msgnav|从 ApexNav、HOV-SG、VLFM、MSGNav 看具身大小脑 VLN 系统]]
 - [[notes/papers/README|Paper Notes]]
 - [[notes/concepts/README|Concept Notes]]
 - [[notes/topics/README|Topic Maps]]
