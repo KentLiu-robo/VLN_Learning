@@ -26,6 +26,21 @@ GPT5.5总结：MSGNav 是一个基于多模态 3D Scene Graph 的零样本具身
 ## Method
 ### 1.M3DSG
 object node + image edge: 两个物体之间的关系不是简单写成 “beside”“on”“near”，而是保存它们共同出现的 RGB-D 图像，让 VLM 在后续推理时直接看到视觉证据
+Object node：
+- 物体唯一 ID；
+- 类别；
+- 3D 坐标；
+- 2D bounding box；
+- 语义 mask；
+- 点云；
+- CLIP visual feature；
+- room location
+使用 **YOLO-World** 做开放词汇检测，使用 **SAM** 生成实例 mask，使用 **CLIP** 提取视觉特征。然后根据空间相似度和视觉相似度，把当前帧中的物体与全局场景图中的已有物体进行匹配和合并
+
+Image edge:
+空间距离小于阈值的物体对，如果它们在同一帧中共同出现，则把这一帧图像加入它们之间的 edge image set; 避免频繁调用 VLM 生成关系文本，同时保留更丰富的关系信息
+
+### 2.MSGNav
 
 
 ## Key Contributions
