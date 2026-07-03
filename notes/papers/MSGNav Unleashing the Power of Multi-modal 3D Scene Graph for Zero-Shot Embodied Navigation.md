@@ -43,6 +43,11 @@ Image edge:
 ### 2.MSGNav
 四个关键模块
 #### KSS：Key Subgraph Selection
+为了避免大量graph的引入VLM，论文中使用了KSS办法，对于每条边的检索只需要平均4张sub graph.实现从越来越大的 M3DSG 中选择与当前目标最相关的一小部分子图，让 VLM 只看关键内容。
+如何实现？
+- 压缩：先把完整图压缩成简单邻接表，只保留物体 ID、类别和邻接关系
+- 聚焦：VLM 根据当前导航目标，从压缩图中选择 top-k 相关物体
+- 剪裁：据选中的关键物体和关系边，从 M3DSG 中挑选最能覆盖相关边的图像。论文使用 greedy dynamic allocation，使少量图像覆盖尽可能多的重要关系
 
 
 ## Key Contributions
