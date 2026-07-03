@@ -55,17 +55,37 @@ Image edge:
 #### CLR：Closed-Loop Reasoning
 引入decision memory，把每一步的探索响应保存到历史动作库中，并在下一次推理时把这些历史反馈提供给 VLM，使得 VLM 的推理从 open-loop 变成 closed-loop，能够根据过去探索结果修正当前判断。
 
-#### 
+#### VVD：Visibility-based Viewpoint Decision
+VVD 用来解决 last-mile problem。
 
+传统做法是：
+```
+找到目标位置 → 选择离目标最近的可通行点 → 导航过去
+```
+但最近点不一定是好视角。可能存在遮挡、目标不可见、距离太近、视野角度不佳等问题
+VVD 的方法是：
+1. 以目标点云中心为中心；
+2. 在多个半径上均匀采样候选 viewpoint；
+3. 对每个候选 viewpoint，计算其到目标点云的可见性；
+4. 选择 visibility score 最高的 viewpoint 作为最终导航点。
+理解为从到达目标附近升级为到达一个能看清目标的好位置
 
 ## Key Contributions
-
-1.
-2.
-3.
+1.提出M3DSG，用图像边代替传统文本边
+2.构建MSGNav系统，通过四个主要模块使得多模态图不只是被存储，而是能被 VLM 高效使用
+3.明确提出并通过visibility score的客观标准，来解决last-mile problem
 
 ## Experiments
-
+### HM3D-OVON 结果
+MSGNav 在 SR 和 SPL 上都最高，尤其 SPL=27.0，说明它不仅更容易成功，而且路径效率也更好。论文指出，相比训练式方法 MTU3D，MSGNav 的 SR 高 7.5%，SPL 高 14.9%。
+### GOAT-BENCH结果
+MSGNav 取得 SR=52.0、SPL=29.6，超过训练式 MTU3D 的 SR=47.2、SPL=27.7。论文认为这说明 M3DSG 对多模态 lifelong navigation 有明显帮助
+### 消融实验结果
+- M3DSG 本身提升很大：SR 从 28.8 提升到 43.8；
+- VVD 提升也很明显：SR 从 43.8 提升到 56.3；
+- AVU 和 CLR 单独加入不一定总是提升 SR，但二者组合后达到最佳；
+- 完整 MSGNav 达到 SR=60.0、SPL=37.0
+### VVD 对 last-mile problem 的验证
 
 ## Limitations
 
