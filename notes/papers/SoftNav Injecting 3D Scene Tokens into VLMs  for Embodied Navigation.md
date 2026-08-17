@@ -15,7 +15,7 @@
 ## Problem
 两种paradigms的局限：
 1. modular:把3D 场景编码成统一的query embeddings
-2. VLM based：
+2. VLM based：用大模型实现推理转化为文本信息，但是缺乏对于结构化的3D场景的理解和知识，同时这种转化的costs 尚未被量化
 ## Method
 
 
