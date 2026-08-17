@@ -13,8 +13,9 @@
 
 
 ## Problem
-
-
+两种paradigms的局限：
+1. modular:把3D 场景编码成统一的query embeddings
+2. VLM based：
 ## Method
 
 
