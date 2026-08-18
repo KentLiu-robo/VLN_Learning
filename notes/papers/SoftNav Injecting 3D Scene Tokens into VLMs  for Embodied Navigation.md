@@ -12,18 +12,16 @@
 ## One-Sentence Summary
 
 个人理解：SoftNav 的核心不是发明新的多模态注入范式，而是在 embodied navigation 中证明了：把 object/frontier 级别的 3D 连续表示直接投影成 VLM hidden space 里的 soft tokens，比把同样的 3D 信息序列化成文本 prompt 更适合导航决策，尤其能改善路径效率和跨 benchmark 泛化。
-看完感觉这个其实相当于
-SoftNav = frozen PQ3D 3D scene encoder + frozen Qwen2.5-VL + trainable MLP projector + LoRA
+看完感觉这个其实相当于3D encoder+ VLM backbone + 自己训练的Projector完成信息的injection
 用少量 SFT 数据把 3D entity tokens 注入 VLM，让 VLM 基于视觉记忆、3D scene tokens 和文本目标选择 frontier waypoint。
 
 ## Problem
 
-论文主要关注的是 3D 场景信息进入 VLM 决策模块时的 **representation gap**，而不是单纯提出一个新的导航 pipeline。
+论文主要关注的是 3D 场景信息进入 VLM 决策模块时的 **representation gap**，而不是提出一个新的导航 pipeline。
 
 ### 1. 现有导航范式的断裂
 
-论文把已有方法分成几类：
-
+已有方法各有优劣：
 1. **Modular / learned policy methods**
    - 代表：MTU3D / PQ3D。
    - 优点：有结构化 3D 感知，可以把 object 和 frontier 编成统一 query embeddings。
@@ -40,15 +38,12 @@ SoftNav = frozen PQ3D 3D scene encoder + frozen Qwen2.5-VL + trainable MLP proje
 
 ### 2. 关键问题
 
-SoftNav 要回答的问题是：
-
-> 如果 3D encoder 已经产生了连续、结构化、任务相关的 entity embeddings，为什么还要先把它们翻译成文本，再让 VLM 从文本里重新理解空间结构？
-
-这也是论文最有价值的切入点：不是问“有没有 3D 信息”，而是问“3D 信息以什么接口进入 VLM”。
+不是问“有没有 3D 信息”，而是问“3D 信息以什么接口进入 VLM”。
 
 ### 3. 对 3D Scene Graph / MSGNav 的关联
 
-这对 MSGNav-style M3DSG 很直接。MSGNav 用 image edges 保留视觉证据，但最终仍然依赖 VLM 查看被选中的图像和 prompt 做推理。SoftNav 的启发是：可以进一步把 object node、image edge、frontier 等实体编码成 soft graph tokens，让 VLM 不只是“看图 + 读文本”，而是能在 hidden space 里直接 attention 到 learned 3D graph memory。
+MSGNav 用 image edges 保留视觉证据，但最终仍然依赖 VLM 查看被选中的图像和 prompt 做推理。
+SoftNav 的启发：可以进一步把 object node、image edge、frontier 等实体编码成 soft graph tokens，让 VLM 不只是“看图 + 读文本”，而是能在 hidden space 里直接通过 attention 到 learned 3D graph memory。
 
 ## Method
 
