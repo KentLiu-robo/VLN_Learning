@@ -11,9 +11,10 @@
 
 ## One-Sentence Summary
 
-个人理解：SoftNav 的核心不是发明新的多模态注入范式，而是在 embodied navigation 中证明了一件具体的事：把 object/frontier 级别的 3D 连续表示直接投影成 VLM hidden space 里的 soft tokens，比把同样的 3D 信息序列化成文本 prompt 更适合导航决策，尤其能改善路径效率和跨 benchmark 泛化。
-
-更短地说：SoftNav = frozen PQ3D 3D scene encoder + frozen Qwen2.5-VL + trainable MLP projector + LoRA，用少量 SFT 数据把 3D entity tokens 注入 VLM，让 VLM 基于视觉记忆、3D scene tokens 和文本目标选择 frontier waypoint。
+个人理解：SoftNav 的核心不是发明新的多模态注入范式，而是在 embodied navigation 中证明了：把 object/frontier 级别的 3D 连续表示直接投影成 VLM hidden space 里的 soft tokens，比把同样的 3D 信息序列化成文本 prompt 更适合导航决策，尤其能改善路径效率和跨 benchmark 泛化。
+看完感觉这个其实相当于
+SoftNav = frozen PQ3D 3D scene encoder + frozen Qwen2.5-VL + trainable MLP projector + LoRA
+用少量 SFT 数据把 3D entity tokens 注入 VLM，让 VLM 基于视觉记忆、3D scene tokens 和文本目标选择 frontier waypoint。
 
 ## Problem
 
