@@ -221,12 +221,12 @@ SG3D 是 scene-graph-grounded sequential navigation，SoftNav 在 s-SR 和 t-SR 
 
 最关键的消融是 Table V：
 
-| Input to VLM | val_seen SR | val_seen SPL | val_synonyms SR | val_synonyms SPL | val_unseen SR | val_unseen SPL |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Text-Hint | 66.7 | 24.7 | 66.7 | 27.0 | 63.3 | 28.3 |
-| Rich-Text | 65.0 | 24.9 | 62.5 | 26.1 | 70.0 | 27.9 |
-| Text-Hint + LoRA | 68.3 | 26.9 | 60.8 | 23.6 | 64.2 | 23.1 |
-| Soft tokens | 74.2 | 33.9 | 68.3 | 28.6 | 66.7 | 25.7 |
+| Input to VLM     | val_seen SR | val_seen SPL | val_synonyms SR | val_synonyms SPL | val_unseen SR | val_unseen SPL |
+| ---------------- | ----------: | -----------: | --------------: | ---------------: | ------------: | -------------: |
+| Text-Hint        |        66.7 |         24.7 |            66.7 |             27.0 |          63.3 |           28.3 |
+| Rich-Text        |        65.0 |         24.9 |            62.5 |             26.1 |          70.0 |           27.9 |
+| Text-Hint + LoRA |        68.3 |         26.9 |            60.8 |             23.6 |          64.2 |           23.1 |
+| Soft tokens      |        74.2 |         33.9 |            68.3 |             28.6 |          66.7 |           25.7 |
 
 关键结论：
 
